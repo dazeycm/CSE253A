@@ -12,6 +12,23 @@ touchdownPerc = (touchdowns / attempts) * 20
 yardsPerAttempt = ((yards / attempts) - 3) * .25
 interceptionPerc = 2.375 - (interceptions / (4 * attempts) * 100)
 
+if completionPerc < 0:
+	completionPerc = 0
+if completionPerc > 2.375:
+	completionPerc = 2.375
+if touchdownPerc < 0:
+	touchdownPerc = 0
+if touchdownPerc > 2.375:
+	touchdownPerc = 2.375
+if yardsPerAttempt < 0:
+	yardsPerAttempt = 0
+if yardsPerAttempt > 2.375:
+	yardsPerAttempt = 2.375
+if interceptionPerc < 0:
+	interceptionPerc = 0
+if interceptionPerc > 2.375:
+	interceptionPerc = 2.375
+
 rating = ((completionPerc + touchdownPerc + yardsPerAttempt + interceptionPerc) / 6) * 100
 
 roundRating = rating % 1
@@ -29,7 +46,7 @@ if rating >= 110:
 	else:
 		print("Stellar")
 elif rating >= 90 and rating < 110:
-	print("Impressive")	
+	print("Impressive")
 elif rating >= 70 and rating < 90:
 	print("Decent")
 elif rating < 70:
