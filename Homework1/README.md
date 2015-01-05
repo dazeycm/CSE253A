@@ -18,6 +18,6 @@ One downside discussed in the text is that the execution time of a python script
 * 10 ** 2 + 2 = 102
 * 10 \*\* 2 \*\* 2 = 10000
 
-# Write Python expressions for the following mathematical formula: (cos(x) * sin^y(x)/pi) + x^y
+# Write Python expressions for the following mathematical formula: `(cos(x) * sin^y(x)/pi) + x^y`
 
-(math.cos(x) * math.pow(math.sin(x), y)  / math.pi) + math.pow(x, y)
+`(math.cos(x) * math.pow(math.sin(x), y)  / math.pi) + math.pow(x, y)`
