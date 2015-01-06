@@ -15,15 +15,13 @@ while True:
         break
 print("Got yahtzee on the %dth try" % (count))
 
-#===============================================================================
-# for x in range(1000000):
-#     dice = []
-#     for i in list(range(5)):
-#         dice.append(random.randint(1,6))
-#     if dice[0] == dice[1] == dice[2] == dice[3] == dice[4]:
-#         count += 1
-# print(count/1000000)
-#===============================================================================
+for x in range(1000000):
+    dice = []
+    for i in list(range(5)):
+        dice.append(random.randint(1,6))
+    if dice[0] == dice[1] == dice[2] == dice[3] == dice[4]:
+        count += 1
+print(count/1000000)
 
 inputFile = open("weather.dat", "r")
 outputFile = open("stats.dat", "w")
