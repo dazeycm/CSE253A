@@ -21,7 +21,7 @@ print(shortName.lower())
 
 #find number of 5's
 randNums = []    
-for x in range(0,10):
+for x in list(range(0,10)):
     randNums.append(random.randint(1, 5))
 
 print("There were a total of {:d} 5's".format(randNums.count(5)))
