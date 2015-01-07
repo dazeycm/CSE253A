@@ -17,7 +17,7 @@ if not error:
     interceptions = int(stats[4])
     touchdowns = int(stats[5])
     
-    if games < 0 or games > 16: 
+    if games < 0 or games > 16:
         error = True;
     if attempts < 0:
         error = True;
