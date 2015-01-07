@@ -1,6 +1,6 @@
 import math
 
-stats = str(input("Enter QB stats in order of games, attempts, completions, yards, interceptions, and touchdowns: "))
+stats = str(input("Enter QB stats in order of games, completions, attempts, yards, interceptions, and touchdowns: "))
 stats = stats.split()
 
 error = False
@@ -11,8 +11,8 @@ for stat in stats:
         
 if not error:        
     games = int(stats[0])
-    attempts = int(stats[1])
-    completions = int(stats[2])
+    attempts = int(stats[2])
+    completions = int(stats[1])
     yards = int(stats[3])
     interceptions = int(stats[4])
     touchdowns = int(stats[5])
@@ -38,19 +38,19 @@ if not error:
     
     if completionPerc < 0:
         completionPerc = 0
-    if completionPerc > 2.375:
+    elif completionPerc > 2.375:
         completionPerc = 2.375
     if touchdownPerc < 0:
         touchdownPerc = 0
-    if touchdownPerc > 2.375:
+    elif touchdownPerc > 2.375:
         touchdownPerc = 2.375
     if yardsPerAttempt < 0:
         yardsPerAttempt = 0
-    if yardsPerAttempt > 2.375:
+    elif yardsPerAttempt > 2.375:
         yardsPerAttempt = 2.375
     if interceptionPerc < 0:
         interceptionPerc = 0
-    if interceptionPerc > 2.375:
+    elif interceptionPerc > 2.375:
         interceptionPerc = 2.375
     
     rating = ((completionPerc + touchdownPerc + yardsPerAttempt + interceptionPerc) / 6) * 100
