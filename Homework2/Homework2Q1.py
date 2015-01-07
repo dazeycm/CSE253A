@@ -16,19 +16,21 @@ if not error:
     yards = int(stats[3])
     interceptions = int(stats[4])
     touchdowns = int(stats[5])
-
-if games < 0 or games > 16: 
-    error = True;
-if attempts < 0:
-    error = True;
-if completions < 0 or completions > attempts:
-    error = True;
-if yards < -99 * completions or yards > 99 * completions:
-    error = True;
-if interceptions < 0 or interceptions > attempts - completions:
-    error = True;
-if touchdowns < 0 or touchdowns > completions:
-    error = True;
+    
+    if games < 0 or games > 16: 
+        error = True;
+    if attempts < 0:
+        error = True;
+    if completions < 0 or completions > attempts:
+        error = True;
+    if yards < -99 * completions or yards > 99 * completions:
+        error = True;
+    if interceptions < 0 or interceptions > attempts - completions:
+        error = True;
+    if touchdowns < 0 or touchdowns > completions:
+        error = True;
+else: 
+    print("Something you entered was not a number!")
 
 if not error:
     completionPerc = ((completions/attempts) - .3) * 5
@@ -75,3 +77,5 @@ if not error:
         print("Decent")
     elif rating < 70:
         print("Dismal")
+else: 
+    print("Entered a stat in an invalid range!")
