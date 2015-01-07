@@ -29,8 +29,6 @@ if not error:
         error = True;
     if touchdowns < 0 or touchdowns > completions:
         error = True;
-else: 
-    print("Something you entered was not a number!")
 
 if not error:
     completionPerc = ((completions/attempts) - .3) * 5
@@ -78,4 +76,4 @@ if not error:
     elif rating < 70:
         print("Dismal")
 else: 
-    print("Entered a stat in an invalid range!")
+    print("There was an error with your input!")
