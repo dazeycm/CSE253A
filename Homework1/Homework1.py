@@ -1,7 +1,7 @@
 import math
 
 games = int(input("Number of games: "))
-attempts = int(input("Number of attemps: "))
+attempts = int(input("Number of attempts: "))
 completions = int(input("Number of completions: "))
 yards = int(input("Number of yards: "))
 interceptions = int(input("Number of interceptions: "))
