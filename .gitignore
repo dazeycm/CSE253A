@@ -54,4 +54,4 @@ docs/_build/
 target/
 
 *.pydevproject
-/US.dat
+*/US.dat
