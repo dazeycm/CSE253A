@@ -5,8 +5,15 @@
 
 # for timezone stuff, key is time zone, value = list of states
 
+#returns the key with the max value in a dictionary
 def keyWithMaxValue(dict):
     vals = list(dict.values())
+    keys = list(dict.keys())
+    return keys[vals.index(max(vals))]
+
+def keyWithMaxValueL(dict):
+    vals = list(dict.values())
+    vals = [len(miniList) for miniList in vals]
     keys = list(dict.keys())
     return keys[vals.index(max(vals))]
 
@@ -16,6 +23,7 @@ sanityCount = 0
 uniqueEntityNames = set()
 entityCount = {}
 stateEntityCount = {}
+entityStateCount = {}
 
 for line in inputFile:
     sanityCount += 1
@@ -37,6 +45,13 @@ for line in inputFile:
         stateEntityCount[state].append(entity)
     else:
         stateEntityCount[state] = []
+        stateEntityCount[state].append(state)
+        
+    if entity in entityStateCount:
+        entityStateCount[entity].add(state)
+    else:
+        entityStateCount[entity] = set()
+        entityStateCount[entity].add(state)
     
 print('Number of unique entities: %d' % len(uniqueEntityNames))
 
@@ -46,14 +61,13 @@ for state in stateEntityCount:
     print('%s: %d' % (state, len(stateEntityCount[state])))
 
 print()
-counter = 0
-total = 0
 stateEntityList = sorted(stateEntityCount)
 for state in stateEntityList:
     print('%s: %d' % (state, len(stateEntityCount[state])))
-    counter += 1
-    total += len(stateEntityCount[state])
-    
+
+entity = keyWithMaxValueL(entityStateCount)
+print(entity)
+print(len(entityStateCount[entity]))
 
 
 
