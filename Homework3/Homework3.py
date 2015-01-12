@@ -37,7 +37,7 @@ for line in inputFile:
     else:
         stateEntityCount[state] = []
         stateEntityCount[state].append(state)
-        
+    
     if entity in entityStateCount:
         entityStateCount[entity].add(state)
     else:
