@@ -13,7 +13,6 @@ def keyWithMaxValueL(dict):
 
 inputFile = open('US.dat', 'r')
 
-sanityCount = 0
 uniqueEntityNames = set()   #set of unique entities
 entityCount = {}            #dict to count the occurence of each entity
 stateEntityCount = {}       #dict where state is key, list of entity is value
@@ -21,9 +20,6 @@ entityStateCount = {}       #dict where entity is key, set of states is value
 timeZoneEntityCount = {}    #dict where timezone is key, list of entities is value
 
 for line in inputFile:
-    sanityCount += 1
-    print(sanityCount)
-    
     line = line.split('\t')
     entity = line[0]
     state = line[1]
@@ -73,12 +69,12 @@ for state in stateEntityList:
 
 #Prints the entity name that appears in the most states
 entity = keyWithMaxValueL(entityStateCount)
-print(entity)
-print(len(entityStateCount[entity]))
+print('Entity that appears in the most states: %s' % entity)
+
 
 #Prints the time zone that contains the most entities
 timeZone = keyWithMaxValueL(timeZoneEntityCount)
-print(timeZone)
+print('Time Zone with the most entities: %s' % timeZone)
 
 
 
