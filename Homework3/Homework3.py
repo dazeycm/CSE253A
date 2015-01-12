@@ -71,10 +71,11 @@ for state in stateEntityList:
 entity = keyWithMaxValueL(entityStateCount)
 print('Entity that appears in the most states: %s' % entity)
 
-
 #Prints the time zone that contains the most entities
 timeZone = keyWithMaxValueL(timeZoneEntityCount)
 print('Time Zone with the most entities: %s' % timeZone)
+for timezone in timeZoneEntityCount:
+    print("TimeZone: %s   Entity Count: %d" % (timezone, len(timeZoneEntityCount[timezone])))
 
 
 
