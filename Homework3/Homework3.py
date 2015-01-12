@@ -15,7 +15,7 @@ inputFile = open('US.dat', 'r')
 sanityCount = 0
 uniqueEntityNames = set()
 entityCount = {}
-statesWithEntities = {}
+stateEntityCount = {}
 
 for line in inputFile:
     sanityCount += 1
@@ -32,12 +32,28 @@ for line in inputFile:
         entityCount[entity] = 1
     else: 
         entityCount[entity] += 1
-        
-    statesWithEntities[state] = [].append(entity)
+    
+    if state in stateEntityCount:
+        stateEntityCount[state].append(entity)
+    else:
+        stateEntityCount[state] = []
     
 print('Number of unique entities: %d' % len(uniqueEntityNames))
+
 key = keyWithMaxValue(entityCount)
 print('Entity with the most appearences: %s\nNumber of appearences: %d' % (key, entityCount[key])) 
+for state in stateEntityCount:
+    print('%s: %d' % (state, len(stateEntityCount[state])))
+
+print()
+counter = 0
+total = 0
+stateEntityList = sorted(stateEntityCount)
+for state in stateEntityList:
+    print('%s: %d' % (state, len(stateEntityCount[state])))
+    counter += 1
+    total += len(stateEntityCount[state])
+    
 
 
 
