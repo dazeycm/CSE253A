@@ -1,16 +1,10 @@
-#dictionary where key is state code and value is list
-#set for entities
-#to get number of states an entity is in
-#   Go through set and see if it is in a value in the dictionary
-
-# for timezone stuff, key is time zone, value = list of states
-
 #returns the key with the max value in a dictionary
 def keyWithMaxValue(dict):
     vals = list(dict.values())
     keys = list(dict.keys())
     return keys[vals.index(max(vals))]
 
+#returns the key with max value in a dictionary, where the value is a list
 def keyWithMaxValueL(dict):
     vals = list(dict.values())
     vals = [len(miniList) for miniList in vals]
@@ -20,10 +14,11 @@ def keyWithMaxValueL(dict):
 inputFile = open('US.dat', 'r')
 
 sanityCount = 0
-uniqueEntityNames = set()
-entityCount = {}
-stateEntityCount = {}
-entityStateCount = {}
+uniqueEntityNames = set()   #set of unique entities
+entityCount = {}            #dict to count the occurence of each entity
+stateEntityCount = {}       #dict where state is key, list of entity is value
+entityStateCount = {}       #dict where entity is key, set of states is value
+timeZoneEntityCount = {}    #dict where timezone is key, list of entities is value
 
 for line in inputFile:
     sanityCount += 1
@@ -52,22 +47,38 @@ for line in inputFile:
     else:
         entityStateCount[entity] = set()
         entityStateCount[entity].add(state)
-    
+        
+    if timeZone in timeZoneEntityCount:
+        timeZoneEntityCount[timeZone].append(entity)
+    else:
+        timeZoneEntityCount[timeZone] = []
+        timeZoneEntityCount[timeZone].append(entity)
+
+#Print number of unique entities    
 print('Number of unique entities: %d' % len(uniqueEntityNames))
 
+#Prints the entity name that appears most in the file
 key = keyWithMaxValue(entityCount)
-print('Entity with the most appearences: %s\nNumber of appearences: %d' % (key, entityCount[key])) 
+print('Entity with the most appearences: %s\nNumber of appearences: %d' % (key, entityCount[key]))
+
+#Prints each state and the number of entities in that state
 for state in stateEntityCount:
     print('%s: %d' % (state, len(stateEntityCount[state])))
 
+#Prints the state and the number of entities in that state, ordered by state abbreviation
 print()
 stateEntityList = sorted(stateEntityCount)
 for state in stateEntityList:
     print('%s: %d' % (state, len(stateEntityCount[state])))
 
+#Prints the entity name that appears in the most states
 entity = keyWithMaxValueL(entityStateCount)
 print(entity)
 print(len(entityStateCount[entity]))
+
+#Prints the time zone that contains the most entities
+timeZone = keyWithMaxValueL(timeZoneEntityCount)
+print(timeZone)
 
 
 
