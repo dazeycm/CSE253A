@@ -58,6 +58,9 @@ def compute():
     
     #minefield of error checking, but I think I got them all
     for str in (btd, htd, dtb, dth):
+        if str == '':
+            showinfo('Input Error', 'Enter something in every box')
+            return
         for char in str:
             if char not in string.ascii_letters + string.digits:
                 showinfo('Input Error', 'Only enter digits and ascii letters')
