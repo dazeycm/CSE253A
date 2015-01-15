@@ -5,12 +5,7 @@ from tkinter import *
 root = Tk()
 root.title('Dumb Binary Conversions')
 titles = ['Binary to Decimal', 'Decimal to Binary', 'Hex to Decimal', 'Decimal to Hex'] 
-
-def binaryToDecimal(num):
-    total = 0
-    for i in num:
-        print(i)
-        
+output = ['Fancy Ouput', 'Not Fancy Ouput']
 
 def makeEntities(root):
     entities = []
@@ -26,11 +21,22 @@ def makeEntities(root):
         
 entities = makeEntities(root)
 
+def makeRadio(root):
+    radios = []
+    for str in output:
+        r = Radiobutton(root, text = str, padx = 20, variable = radio, value = str).pack(anchor = W)
+        radios.append(r)
+        
 def compute():
     print("Nothing")
     
 def reset():
     print("Nothing 2")
+
+radio = IntVar()
+radio.set(0)
+
+radios = makeRadio(root)
 
 b1 = Button(root, text = 'Compute', command = compute)
 b1.pack(side = LEFT, padx = 5, pady = 5)
