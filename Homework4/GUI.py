@@ -1,5 +1,7 @@
 from tkinter import *
 
+#radio button to decide if we want 0x or 0b in front of numbers
+
 root = Tk()
 root.title('Dumb Binary Conversions')
 titles = ['Binary to Decimal', 'Decimal to Binary', 'Hex to Decimal', 'Decimal to Hex'] 
