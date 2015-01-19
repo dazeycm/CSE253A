@@ -50,24 +50,24 @@ def makeButtons():
 def makeEntryBox():
     global entryBox, madeBox
     entryBox = Entry(row3, justify = CENTER)
-    #entryBox.pack(anchor = CENTER)
     entryBox.grid(row = 0, column = 1)
     madeBox = True
     
-def finalScoreText(txt):
-    txt.set('')
-    finalScoreLabel = Label(row3, width = 6, textvariable = txt)
-    #finalScoreLabel.pack(anchor = 'nw', side = LEFT)
+def finalScoreText():
+    global scoreTxt
+    scoreTxt = StringVar()
+    scoreTxt.set('')
+    finalScoreLabel = Label(row3, width = 6, textvariable = scoreTxt)
     finalScoreLabel.grid(row = 0, column = 0)
-    
+
 def playGame():
     global score
     score = 0
-    scoreTxt.set('')
     showBoard()
+    finalScoreText()
+    scoreTxt.set('')
     if not madeBox:
         makeEntryBox()
-    print(letters)
     
 def quitGame():
     global score, scoreTxt
@@ -113,9 +113,6 @@ row2.pack()
 row3.pack()
 
 makeButtons()
-
-scoreTxt = StringVar()
-finalScoreText(scoreTxt)
 
 madeBox = False 
 dice = [['A','E','A','N','E','G'],['W','N','G','E','E','H'],['A','H','S','P','C','O'], ['L','N','H','N','R','Z'],['A','S','P','F','F','K'],['T','S','T','I','Y','D'],['O','B','J','O','A','B'],['O','W','T','O','A','T'],['I','O','T','M','U','C'],['E','R','T','T','Y','L'],['R','Y','V','D','E','L'],['T','O','E','S','S','I'],['L','R','E','I','X','D'],['T','E','R','W','H','V'],['E','I','U','N','E','S'],['N','U','I','H','M','Qu']]
