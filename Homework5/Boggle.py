@@ -90,9 +90,11 @@ def showBoard():
         die = Label(row2, width = 2, textvariable = txt)
         die.grid(row = i // 4, column = i % 4)
         letterLabels.append(txt)
+        
+    return letterLabels
     
 def get16RandDice():
-    global letters 
+    global letters
     letters = []
     count = 0
     for die in dice:
@@ -111,14 +113,15 @@ row2.pack()
 row3.pack()
 
 makeButtons()
+
 scoreTxt = StringVar()
 finalScoreText(scoreTxt)
 
-fakeLabel = Label(row3, width = 6)
-fakeLabel.grid(row = 0, column = 3)
-
 madeBox = False 
 dice = [['A','E','A','N','E','G'],['W','N','G','E','E','H'],['A','H','S','P','C','O'], ['L','N','H','N','R','Z'],['A','S','P','F','F','K'],['T','S','T','I','Y','D'],['O','B','J','O','A','B'],['O','W','T','O','A','T'],['I','O','T','M','U','C'],['E','R','T','T','Y','L'],['R','Y','V','D','E','L'],['T','O','E','S','S','I'],['L','R','E','I','X','D'],['T','E','R','W','H','V'],['E','I','U','N','E','S'],['N','U','I','H','M','Qu']]
+
+fakeLabel = Label(row3, width = 6)
+fakeLabel.grid(row = 0, column = 3)
 
 root.mainloop()
 
