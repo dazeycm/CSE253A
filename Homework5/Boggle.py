@@ -52,6 +52,7 @@ def makeEntryBox():
     entryBox = Entry(row3, justify = CENTER)
     entryBox.grid(row = 0, column = 1)
     madeBox = True
+    createFakeLabel()
     
 def finalScoreText():
     global scoreTxt
@@ -100,6 +101,11 @@ def get16RandDice():
     for die in dice:
         rand = random.randint(0, 5)
         letters.append(die[rand])
+    
+#this is needed to ensure that the entry box is centered under the boggle board
+def createFakeLabel():
+    fakeLabel = Label(row3, width = 6)
+    fakeLabel.grid(row = 0, column = 3)
 
 root = Tk()  
 root.title('Boggle!')
@@ -117,8 +123,6 @@ makeButtons()
 madeBox = False 
 dice = [['A','E','A','N','E','G'],['W','N','G','E','E','H'],['A','H','S','P','C','O'], ['L','N','H','N','R','Z'],['A','S','P','F','F','K'],['T','S','T','I','Y','D'],['O','B','J','O','A','B'],['O','W','T','O','A','T'],['I','O','T','M','U','C'],['E','R','T','T','Y','L'],['R','Y','V','D','E','L'],['T','O','E','S','S','I'],['L','R','E','I','X','D'],['T','E','R','W','H','V'],['E','I','U','N','E','S'],['N','U','I','H','M','Qu']]
 
-fakeLabel = Label(row3, width = 6)
-fakeLabel.grid(row = 0, column = 3)
 
 root.mainloop()
 
