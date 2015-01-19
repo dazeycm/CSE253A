@@ -1,12 +1,14 @@
 from tkinter.filedialog import askopenfilename
 from tkinter import *
 import random
+from tkinter.messagebox import showinfo
 
 def createFileOptions():
     options = {}
     options['defaultextension'] = '.txt'
     options['filetypes'] = [('all files', '.*'), ('text files', '.txt')]
-    options['initialdir'] = r'C:\Users\Craig\Desktop\english'
+    options['initialdir'] = r'C:\Users\Craig\Desktop'
+    options['initialfile'] = r'C:\Users\Craig\Desktop\english'
     options['title'] = 'Open source file'
     return options
 
@@ -45,13 +47,21 @@ def makeButtons():
     quitButton.grid(row = 0, column = 3)
     
 def playGame():
+    global score
+    score = 0
     showBoard()
+    print(letters)
     
 def quitGame():
-    for letterLabel in letterLabels:
-        letterLabel.set('')
+    global score
+    try:
+        for letterLabel in letterLabels:
+            letterLabel.set('')
+        print('Your score was %d' % score)
+        score = 0
+    except Exception:
+        showinfo('Whoops!', "You haven't started a game yet")
         
-
 def showBoard():
     global letterLabels
     letterLabels = []
@@ -70,14 +80,12 @@ def get16RandDice():
     for die in dice:
         rand = random.randint(0, 5)
         letters.append(die[rand])
-    
 
 root = Tk()  
 root.title('Boggle!')
 root.geometry('225x150')
 row1 = Frame(root)
 row2 = Frame(root)
-score = 0
 makeButtons()
  
 dice = [['A','E','A','N','E','G'],['W','N','G','E','E','H'],['A','H','S','P','C','O'], ['L','N','H','N','R','Z'],['A','S','P','F','F','K'],['T','S','T','I','Y','D'],['O','B','J','O','A','B'],['O','W','T','O','A','T'],['I','O','T','M','U','C'],['E','R','T','T','Y','L'],['R','Y','V','D','E','L'],['T','O','E','S','S','I'],['L','R','E','I','X','D'],['T','E','R','W','H','V'],['E','I','U','N','E','S'],['N','U','I','H','M','Qu']]
