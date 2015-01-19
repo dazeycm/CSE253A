@@ -73,6 +73,7 @@ def get16RandDice():
     
 
 root = Tk()  
+root.title('Boggle!')
 root.geometry('225x150')
 row1 = Frame(root)
 row2 = Frame(root)
