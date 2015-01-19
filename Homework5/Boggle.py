@@ -46,10 +46,18 @@ def makeButtons():
     quitButton = Button(row1, text = 'Quit', command = sys.exit)
     quitButton.grid(row = 0, column = 3)
     
+def makeEntryBox():
+    global entryBox, madeBox
+    entryBox = Entry(row3)
+    entryBox.pack()
+    madeBox = True
+    
 def playGame():
     global score
     score = 0
     showBoard()
+    if not madeBox:
+        makeEntryBox()
     print(letters)
     
 def quitGame():
@@ -84,14 +92,19 @@ def get16RandDice():
 root = Tk()  
 root.title('Boggle!')
 root.geometry('225x150')
+
 row1 = Frame(root)
 row2 = Frame(root)
-makeButtons()
- 
-dice = [['A','E','A','N','E','G'],['W','N','G','E','E','H'],['A','H','S','P','C','O'], ['L','N','H','N','R','Z'],['A','S','P','F','F','K'],['T','S','T','I','Y','D'],['O','B','J','O','A','B'],['O','W','T','O','A','T'],['I','O','T','M','U','C'],['E','R','T','T','Y','L'],['R','Y','V','D','E','L'],['T','O','E','S','S','I'],['L','R','E','I','X','D'],['T','E','R','W','H','V'],['E','I','U','N','E','S'],['N','U','I','H','M','Qu']]
-
+row3 = Frame(root)
 row1.pack()
 row2.pack()
+row3.pack()
+
+makeButtons()
+
+madeBox = False 
+dice = [['A','E','A','N','E','G'],['W','N','G','E','E','H'],['A','H','S','P','C','O'], ['L','N','H','N','R','Z'],['A','S','P','F','F','K'],['T','S','T','I','Y','D'],['O','B','J','O','A','B'],['O','W','T','O','A','T'],['I','O','T','M','U','C'],['E','R','T','T','Y','L'],['R','Y','V','D','E','L'],['T','O','E','S','S','I'],['L','R','E','I','X','D'],['T','E','R','W','H','V'],['E','I','U','N','E','S'],['N','U','I','H','M','Qu']]
+
 root.mainloop()
 
 
