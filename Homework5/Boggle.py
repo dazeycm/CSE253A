@@ -48,15 +48,20 @@ def playGame():
     showBoard()
     
 def quitGame():
-    sys.exit()
+    for letterLabel in letterLabels:
+        letterLabel.set('')
+        
 
 def showBoard():
-    get16RandDice()
+    global letterLabels
     letterLabels = []
+    get16RandDice()
     for i in range(16):
-        die = Label(row2, width = 2, text = letters[i])
+        txt = StringVar()
+        txt.set(letters[i])
+        die = Label(row2, width = 2, textvariable = txt)
         die.grid(row = i // 4, column = i % 4)
-        letterLabels.append(die)
+        letterLabels.append(txt)
     
 def get16RandDice():
     global letters 
