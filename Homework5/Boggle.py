@@ -3,6 +3,7 @@ from tkinter import *
 import random
 from tkinter.messagebox import showinfo
 from test.test_itertools import minsize
+from collections import Counter
 
 def createFileOptions():
     options = {}
@@ -79,24 +80,49 @@ def playGame():
         
 def checkWord(word, letters, tmpGameWords):
     if all(let in letters for let in word) and word in words and word not in tmpGameWords:
+        cnt = Counter()
+        cntCheck = Counter()
+        for lets in word:
+            cnt[lets] += 1
+        for lets in letters:
+            cntCheck[lets] +=1
+        for let in cnt:            
+            if cnt[let] <= cntCheck[let]:
+                continue
+            else:
+                return False
         return True
     else:
         return False
 
 def processWord(event):
     global score
-    checkWord('hello', ['hello'], ['hello'])
-    #try:
-    word = entryBox.get()
-    word = word.upper()
-    entryBox.delete(0, END)
-    if checkWord(word, letters, tmpGameWords):
-        print('okay')
-        tmpGameWords.append(word)
-    else:
-        print('not okay')
-    #except Exception:
-    #    showinfo('Whoops!', 'Find a dictionary file and start the game before hitting enter!')
+    try:
+        word = entryBox.get()
+        word = word.upper()
+        entryBox.delete(0, END)
+        if checkWord(word, letters, tmpGameWords):
+            tmpGameWords.append(word)
+            print('Success! Gained %d points' % calcPoints(word))
+            score += calcPoints(word)
+        else:
+            print('Invalid Word')
+    except Exception:
+        showinfo('Whoops!', 'Find a dictionary file and start the game before hitting enter!')
+    
+def calcPoints(word):
+    if len(word) <= 2:
+        return 0
+    elif len(word) <= 4:
+        return 1
+    elif len(word) == 5:
+        return 2
+    elif len(word) == 6:
+        return 3
+    elif len(word) == 7:
+        return 5
+    elif len(word) >= 8:
+        return 11
     
 def quitGame():
     global score, scoreTxt
@@ -104,6 +130,8 @@ def quitGame():
         for letterLabel in letterLabels:
             letterLabel.set('')
         print('Your score was %d' % score)
+        entryBox.delete(0, END)
+        entryBox.insert(0, str(score))
         score = 0
         scoreTxt.set('Score')
     except Exception:
