@@ -4,6 +4,7 @@ import random
 from tkinter.messagebox import showinfo
 from test.test_itertools import minsize
 from collections import Counter
+import tkinter.messagebox
 
 def createFileOptions():
     options = {}
@@ -23,20 +24,18 @@ def openFile():
         inputFile = open(name)
         for line in inputFile:
             if ' ' in line:
-                print('Invalid dictionary')
+                showinfo('Whoops!', 'Invalid Dictionary')
                 return False
             words.append(line[:-1].upper()) #strip new line character
     if not all([words[i] <= words[i + 1] for i in range(len(words) - 1)]):
-        print('Invalid dictionary')
+        showinfo('Whoops!', 'Invalid Dictionary')
         return False
     return True
             
 def fileCheck():
     flag = openFile()
     while not flag:
-        print('failure')
         flag = openFile()
-    print('success')
     
 def makeButtons():
     findFileButton = Button(row1, text = 'Find File', command = fileCheck)
@@ -47,20 +46,34 @@ def makeButtons():
     endButton.grid(row = 0, column = 2)
     quitButton = Button(row1, text = 'Quit', command = sys.exit)
     quitButton.grid(row = 0, column = 3)
+    aiButton = Button(row3, text = 'AiPlay', command = aiPlay)
+    aiButton.grid(row = 0, column = 3)
     
 def makeEntryBox():
     global entryBox, madeBox
     entryBox = Entry(row3, justify = CENTER)
     entryBox.grid(row = 0, column = 1)
     madeBox = True
-    createFakeLabel()
     
 def finalScoreText():
     global scoreTxt
     scoreTxt = StringVar()
     scoreTxt.set('')
-    finalScoreLabel = Label(row3, width = 6, textvariable = scoreTxt)
-    finalScoreLabel.grid(row = 0, column = 0)
+
+def aiPlay():
+    global score
+    variable = tkinter.messagebox.askyesno('Confirmation', 'If you have the Ai play it will reset your current game session. Are you sure you want to do this?')
+    if variable == 'no':
+        return
+    
+    score = 0
+    try:
+        for word in words:
+            if checkWord(word, letters):
+                score += calcPoints(word)
+        quitGame()
+    except Exception:
+        showinfo('Whoops!', 'Did you forget to select a dictionary?')    
 
 def playGame():
     global score, tmpGameWords
@@ -78,7 +91,7 @@ def playGame():
     if not madeBox:
         makeEntryBox()
         
-def checkWord(word, letters, tmpGameWords):
+def checkWord(word, letters, tmpGameWords = []):
     if all(let in letters for let in word) and word in words and word not in tmpGameWords:
         cnt = Counter()
         cntCheck = Counter()
@@ -103,7 +116,6 @@ def processWord(event):
         entryBox.delete(0, END)
         if checkWord(word, letters, tmpGameWords):
             tmpGameWords.append(word)
-            print('Success! Gained %d points' % calcPoints(word))
             score += calcPoints(word)
         else:
             print('Invalid Word')
@@ -126,10 +138,10 @@ def calcPoints(word):
     
 def quitGame():
     global score, scoreTxt
+    showinfo('Game Over', 'The final score is in the word box!')
     try:
         for letterLabel in letterLabels:
             letterLabel.set('')
-        print('Your score was %d' % score)
         entryBox.delete(0, END)
         entryBox.insert(0, str(score))
         score = 0
@@ -158,10 +170,6 @@ def get16RandDice():
         rand = random.randint(0, 5)
         letters.append(die[rand])
     
-#this is needed to ensure that the entry box is centered under the boggle board
-def createFakeLabel():
-    fakeLabel = Label(row3, width = 6)
-    fakeLabel.grid(row = 0, column = 3)
 
 root = Tk()  
 root.title('Boggle!')
