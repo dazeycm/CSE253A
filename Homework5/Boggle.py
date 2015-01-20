@@ -24,7 +24,7 @@ def openFile():
             if ' ' in line:
                 print('Invalid dictionary')
                 return False
-            words.append(line)
+            words.append(line[:-1].upper()) #strip new line character
     if not all([words[i] <= words[i + 1] for i in range(len(words) - 1)]):
         print('Invalid dictionary')
         return False
@@ -70,6 +70,20 @@ def playGame():
     if not madeBox:
         makeEntryBox()
     
+def processWord(event):
+    global score
+    try:
+        tmpGameWords = []
+        word = entryBox.get()
+        word = word.upper()
+        entryBox.delete(0, END)
+        if all(let in letters for let in word) and word in words:
+            print('okay')
+        else:
+            print('not okay')
+    except Exception:
+        showinfo('Whoops!', 'Find a dictionary file and start the game before hitting enter!')
+    
 def quitGame():
     global score, scoreTxt
     try:
@@ -110,6 +124,7 @@ def createFakeLabel():
 root = Tk()  
 root.title('Boggle!')
 root.geometry('225x150')
+root.bind('<Return>', processWord)
 
 row1 = Frame(root)
 row2 = Frame(root)
