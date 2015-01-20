@@ -62,27 +62,41 @@ def finalScoreText():
     finalScoreLabel.grid(row = 0, column = 0)
 
 def playGame():
-    global score
+    global score, tmpGameWords
+    tmpGameWords = []
     score = 0
+    try:
+        len(words)
+    except Exception:
+        showinfo('Whoops!', 'You need to select a dictionary first!')
+        return
+        
     showBoard()
     finalScoreText()
     scoreTxt.set('')
     if not madeBox:
         makeEntryBox()
-    
+        
+def checkWord(word, letters, tmpGameWords):
+    if all(let in letters for let in word) and word in words and word not in tmpGameWords:
+        return True
+    else:
+        return False
+
 def processWord(event):
     global score
-    try:
-        tmpGameWords = []
-        word = entryBox.get()
-        word = word.upper()
-        entryBox.delete(0, END)
-        if all(let in letters for let in word) and word in words:
-            print('okay')
-        else:
-            print('not okay')
-    except Exception:
-        showinfo('Whoops!', 'Find a dictionary file and start the game before hitting enter!')
+    checkWord('hello', ['hello'], ['hello'])
+    #try:
+    word = entryBox.get()
+    word = word.upper()
+    entryBox.delete(0, END)
+    if checkWord(word, letters, tmpGameWords):
+        print('okay')
+        tmpGameWords.append(word)
+    else:
+        print('not okay')
+    #except Exception:
+    #    showinfo('Whoops!', 'Find a dictionary file and start the game before hitting enter!')
     
 def quitGame():
     global score, scoreTxt
@@ -124,6 +138,7 @@ def createFakeLabel():
 root = Tk()  
 root.title('Boggle!')
 root.geometry('225x150')
+showinfo('WELCOME!', 'To play: Find a dictionary file, press start game, enter your word in the box and press enter!')
 root.bind('<Return>', processWord)
 
 row1 = Frame(root)
