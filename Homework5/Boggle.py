@@ -59,21 +59,29 @@ def finalScoreText():
     global scoreTxt
     scoreTxt = StringVar()
     scoreTxt.set('')
+    finalScoreLabel = Label(row3, width = 6, textvariable = scoreTxt)
+    finalScoreLabel.grid(row = 0, column = 0)
 
 def aiPlay():
-    global score
+    global score, tmpGameWords
+    tmpGameWords = []
     variable = tkinter.messagebox.askyesno('Confirmation', 'If you have the Ai play it will reset your current game session. Are you sure you want to do this?')
-    if variable == 'no':
+    if not variable: 
         return
-    
     score = 0
     try:
+        print('Ai running....')
         for word in words:
             if checkWord(word, letters):
                 score += calcPoints(word)
+                tmpGameWords.append(word)
+        print('Ai stopped')
+        print('----List of Ai words----')
+        print(tmpGameWords)
         quitGame()
     except Exception:
-        showinfo('Whoops!', 'Did you forget to select a dictionary?')    
+        showinfo('Whoops!', 'Did you forget to select a dictionary and start a game?')   
+        print('Error while running ai!') 
 
 def playGame():
     global score, tmpGameWords
@@ -90,6 +98,8 @@ def playGame():
     scoreTxt.set('')
     if not madeBox:
         makeEntryBox()
+        
+    entryBox.delete(0, END)
         
 def checkWord(word, letters, tmpGameWords = []):
     if all(let in letters for let in word) and word in words and word not in tmpGameWords:
@@ -138,7 +148,6 @@ def calcPoints(word):
     
 def quitGame():
     global score, scoreTxt
-    showinfo('Game Over', 'The final score is in the word box!')
     try:
         for letterLabel in letterLabels:
             letterLabel.set('')
@@ -146,6 +155,7 @@ def quitGame():
         entryBox.insert(0, str(score))
         score = 0
         scoreTxt.set('Score')
+        showinfo('Game Over', 'The final score is in the word box!')
     except Exception:
         showinfo('Whoops!', "You haven't started a game yet!")
         
