@@ -93,6 +93,7 @@ def playGame():
     global score, tmpGameWords
     tmpGameWords = []
     score = 0
+    print('Starting game')
     try:
         len(words)
     except Exception:
@@ -156,13 +157,12 @@ def calcPoints(word):
 def quitGame():
     global score, scoreTxt
     try:
-        for letterLabel in letterLabels:
-            letterLabel.set('')
         entryBox.delete(0, END)
         entryBox.insert(0, str(score))
-        score = 0
         scoreTxt.set('Score')
         showinfo('Game Over', 'The final score is in the word box!')
+        print('Game Ended. Final score was: %d' % score)
+        score = 0
     except Exception:
         showinfo('Whoops!', "You haven't started a game yet!")
         
