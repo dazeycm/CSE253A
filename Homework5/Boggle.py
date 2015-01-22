@@ -20,14 +20,20 @@ def openFile():
     words = []
     options = createFileOptions()
     name = askopenfilename(**options)
-    if name != '':
-        inputFile = open(name)
-        for line in inputFile:
-            if ' ' in line:
+    try:
+        if name != None:
+            inputFile = open(name)
+            print('Opening dictionary')
+            for line in inputFile:
+                if ' ' in line:
+                    showinfo('Whoops!', 'Invalid Dictionary')
+                    return False
+                words.append(line[:-1].upper()) #strip new line character
+            if not all([words[i] <= words[i + 1] for i in range(len(words) - 1)]):
                 showinfo('Whoops!', 'Invalid Dictionary')
                 return False
-            words.append(line[:-1].upper()) #strip new line character
-    if not all([words[i] <= words[i + 1] for i in range(len(words) - 1)]):
+            print('Finished reading dictionary')    
+    except Exception:
         showinfo('Whoops!', 'Invalid Dictionary')
         return False
     return True
@@ -125,6 +131,7 @@ def processWord(event):
         word = word.upper()
         entryBox.delete(0, END)
         if checkWord(word, letters, tmpGameWords):
+            print("Got %d points for word %s" % (calcPoints(word), word))
             tmpGameWords.append(word)
             score += calcPoints(word)
         else:
